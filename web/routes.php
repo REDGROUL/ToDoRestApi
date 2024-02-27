@@ -6,20 +6,21 @@ use Red\TodoappCom\controller\TaskController;
 Route::add('/api/findAll', function() {
     $taskController = new TaskController;
     echo $taskController->findAlltasks();
-
 });
 
+Route::add('/api/dropTaskById/([0-9-]*)', function($id) {
+    $taskController = new TaskController;
+    echo $taskController->dropTaskById($id);
+}, 'delete');
 
-Route::add('/api/deleteTask', function() {
- 
-});
-
-Route::add('/api/createTask', function() {
- 
-});
+Route::add('/api/addTask', function() {
+    $json = json_decode(file_get_contents("php://input"), true);
+    $taskController = new TaskController;
+    echo $taskController->addTask($json);
+}, 'post');
 
 
-Route::add('/api/createTAsk', function() {
- 
-});
-
+Route::add('/api/taskDone/([0-9-]*)', function($id){
+    $taskController = new TaskController;
+    echo $taskController->taskDone($id);
+},'patch');
